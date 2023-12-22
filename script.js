@@ -32,11 +32,12 @@ class Particle {
     update() {
         this.x += this.speedX;
         this.y += this.speedY;
+        if (this.size > 0.2) this.size -= 0.1;
     }
     draw() {
         ctx.fillStyle = 'blue';
         ctx.beginPath();
-        ctx.arc(this.x, this.y, 50, 0, Math.PI * 2);
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
     }
 }
@@ -53,6 +54,10 @@ function handleParticles() {
     for (let i = 0; i < particlesArray.length; i++) {
         particlesArray[i].update();
         particlesArray[i].draw();
+        if (particlesArray[i].size < 0.3) {
+            particlesArray.splice(i, 1);
+            i--;
+        }
     }
 }
 
